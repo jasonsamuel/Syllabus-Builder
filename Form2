@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace SSProject
+{
+    public partial class Form3 : Form
+    {
+        List<EventInformation> events = new List<EventInformation>();
+        public Form3()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void insertButton2_Click(object sender, EventArgs e)
+        {
+            EventInformation  ei = new EventInformation();
+            if (YesButton.Checked)
+            {
+                ei.info = courseEventBox.Text + '\n' + ". There will be a Test";
+                courseEventBox.Clear();
+            }
+            else if (NoButton.Checked)
+            {
+                ei.info = courseEventBox.Text;
+                courseEventBox.Clear();
+            }
+            else
+            {
+                courseEventBox.Text = "Please select yes or no";
+            }
+            events.Add(ei);            
+        }
+
+        private void nextButton2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveXML.SaveData(events, "eventsFile.xml");
+                Hide();
+                Form4 form4 = new Form4();
+                form4.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+    }
+}
