@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+using System.Xml.Serialization;
+
+
+namespace SSProject
+{
+    public partial class Form4 : Form
+    {
+        public Form4()
+        {
+            InitializeComponent();
+        }
+
+        Dictionary<string, string> detailsDictionary = new Dictionary<string, string>();
+        List<string> eventList = new List<string>();
+
+        private void Form4_Load(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists("detailsFile.xml"))
+                {
+                    XmlSerializer xs = new XmlSerializer(typeof(DetailsInformation));
+                    FileStream read = new FileStream("detailsFile.xml", FileMode.Open, FileAccess.Read, FileShare.Read);
+                    DetailsInformation newDetail = (DetailsInformation)xs.Deserialize(read);
+      //              detailsDictionary = newDetail.getContent();
+                }
+                if (File.Exists("eventsFile.xml"))
+                {
+                    XmlSerializer xs2 = new XmlSerializer(typeof(EventInformation));
+                    FileStream read2 = new FileStream("eventsFile.xml", FileMode.Open, FileAccess.Read, FileShare.Read);
+                    EventInformation newEvent = (EventInformation)xs2.Deserialize(read2);
+      //              eventList = newEvent.getContent();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+/**        private void Off_Click_1(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+**/
+    }
+}
