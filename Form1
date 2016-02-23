@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace SSProject
+{
+    public partial class Form2 : Form
+    {
+
+        List<DetailsInformation> info = new List<DetailsInformation>{};
+        public Form2()
+        {
+            InitializeComponent();
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveXML.SaveData(info, "detailsFile.xml");
+                Hide();
+                Form3 form3 = new Form3();
+                form3.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private void insertButton_Click(object sender, EventArgs e)
+        {
+
+            try {
+                DetailsInformation di = new DetailsInformation();
+                di.title = TitleBox.Text ;
+                di.description = TitleBox2.Text;
+                info.Add(di);
+                TitleBox.Clear();
+                TitleBox2.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+    }
+}
